@@ -1,11 +1,72 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta charset="utf-8">
-<title>菜鸟教程(runoob.com)</title>
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 </head>
 <body>
-    <h1>我的第35123125151一个标题</h1>
-    <p>我的第一个段落。</p>
+
+<a href="">打开 app</a>
+
+
+<script type="text/javascript">
+    var isIphone = navigator.userAgent.match(/(iPhone|iPod|iPad);?/i);
+    var isAndroid = navigator.userAgent.match(/android/i);
+    //iOS 9 以下
+    var iphoneSchema = 'xxxxxx://open?type=article&cid=39783&cover=http://file.xxxxxx.com/eImg/uimages/20170901/1504260781459851.jpg';
+    //iOS 9及以上版本
+    var universalLink = 'https://app.xxxxxx.com/share/project?cid=39783&cover=http://file.xxxxxx.com/eImg/uimages/20170901/1504260781459851.jpg';
+    //https://app.xxxxxx.com/share/article?cid=39783&cover=http://file.xxxxxx.com/eImg/uimages/20170901/1504260781459851.jpg
+  
+    //Android
+    var androidSchema = 'xxxxxx://open?type=article&cid=39783&cover=http://file.xxxxxx.com/eImg/uimages/20170901/1504260781459851.jpg';
+    var downUrl = 'http://a.app.qq.com/o/simple.jsp?pkgname=com.android.app.xxxxxx';//下载连接
+
+    var isWeixin = function(){ //判断是否是微信
+        var ua = navigator.userAgent.toLowerCase();
+        if (ua.match(/MicroMessenger/i) == "micromessenger") {
+            return true;
+        } else {
+            return false;
+        }
+    };
+
+    $('a').click(function(){
+        alert("000000000");
+        //微信
+        if (isIphone && navigator.userAgent.match(/os\s+(\d+)/i)[1] - 0 >= 9) {
+            alert("11111111");
+            //使用通用链接跳转（连接 路径 为 下载页路径， 后跟参数， 安装， 则跳转app，  未安装则跳转对应 通用连接 进行下载）
+            //重定向 到下载页面
+            window.location = universalLink;
+            return false;
+        } else {
+            if (isWeixin()) {
+                //在微信内置浏览器中，提醒用户用系统浏览器打开(Android  iOS)
+                alert('使用手机浏览器打开');
+            } else {
+                if (isIphone) {
+                    $('a').attr('href', downUrl);
+                    var ifr = document.createElement('iframe');
+                    ifr.src = iphoneSchema;
+                    ifr.style.display = 'none';
+                    document.body.appendChild(ifr);
+                    setTimeout(function(){
+                        document.body.removeChild(ifr);
+                    }, 3000);
+                } else if (isAndroid) {
+                    window.location.href = androidSchema;
+                    setTimeout(function(){
+                        window.location.href = downUrl; //android下载地址
+                    },1000);
+                    return false;
+                } else {
+                    //非iOS、Android 手机， 隐藏打开文章按钮
+                }
+            }
+        }
+    });
+</script>
 </body>
 </html>
