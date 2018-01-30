@@ -33,10 +33,8 @@
     };
 
     $('a').click(function(){
-        alert("000000000");
         //微信
         if (isIphone && navigator.userAgent.match(/os\s+(\d+)/i)[1] - 0 >= 9) {
-            alert("11111111");
             //使用通用链接跳转（连接 路径 为 下载页路径， 后跟参数， 安装， 则跳转app，  未安装则跳转对应 通用连接 进行下载）
             //重定向 到下载页面
             window.location = universalLink;
