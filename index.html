@@ -7,9 +7,6 @@
 </head>
 <body>
 
-<a href="">打开 APPQ</a>
-
-
 <script type="text/javascript">
     var isIphone = navigator.userAgent.match(/(iPhone|iPod|iPad);?/i);
     var isAndroid = navigator.userAgent.match(/android/i);
@@ -32,7 +29,7 @@
         }
     };
 
-    $('a').click(function(){
+   (function(){
         //微信
         if (isIphone && navigator.userAgent.match(/os\s+(\d+)/i)[1] - 0 >= 9) {
             //使用通用链接跳转（连接 路径 为 下载页路径， 后跟参数， 安装， 则跳转app，  未安装则跳转对应 通用连接 进行下载）
@@ -64,7 +61,7 @@
                 }
             }
         }
-    });
+    }());
 </script>
 </body>
 </html>
